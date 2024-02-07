@@ -27,6 +27,7 @@ import frc.robot.generated.TunerConstants;
 public class RobotContainer {
   //public Joystick IntakeJoystick;
   private final Joystick m_IntakeJoystick = new Joystick(0);
+  //private final Joystick m_StageJoystick = new Joystick(0);
   private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
 
   private double MaxSpeed = 1; // 6 meters per second desired top speed
@@ -44,6 +45,11 @@ public class RobotContainer {
   private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
   private final SwerveRequest.PointWheelsAt point = new SwerveRequest.PointWheelsAt();
   private final Telemetry logger = new Telemetry(MaxSpeed);
+
+
+
+
+
 
   private void configureBindings() {
     drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
@@ -66,12 +72,17 @@ public class RobotContainer {
     drivetrain.registerTelemetry(logger::telemeterize);
   }
 
+
+
+
+  
   public RobotContainer() {
     final JoystickButton IntakeButton = new JoystickButton(m_IntakeJoystick, 1);
     final JoystickButton ShootingButton = new JoystickButton(m_IntakeJoystick, 2);
+    //final JoystickButton ShootingButton = new JoystickButton(m_StageJoystick, 2)
     IntakeButton.whileTrue(new IntakeCommand(m_IntakeSubsystem));
-    // ShootingButton.whileTrue(new ShootingCommand(m_IntakeSubsystem));
-    ShootingButton.toggleOnTrue(new ShootingCommand(m_IntakeSubsystem));
+    ShootingButton.whileTrue(new ShootingCommand(m_IntakeSubsystem));
+    //ShootingButton.toggleOnTrue(new ShootingCommand(m_IntakeSubsystem));
     configureBindings();
   }
 
