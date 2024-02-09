@@ -14,11 +14,14 @@ public class IntakeCommand extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     m_IntakeSubsystem = intakeSubsystem;
     addRequirements(m_IntakeSubsystem);
+    
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    //System.out.println("First Motor \n");
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

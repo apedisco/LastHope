@@ -20,21 +20,24 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Commands.IntakeCommand;
 import frc.robot.Commands.ShootingCommand;
 import frc.robot.Commands.StagingCommand;
+import frc.robot.Commands.shootandstage;
 import frc.robot.Subsystems.IntakeSubsystem;
 import frc.robot.generated.TunerConstants;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 
 public class RobotContainer {
-  //public Joystick IntakeJoystick;
-  private final Joystick m_IntakeJoystick = new Joystick(0);
-  //private final Joystick m_StageJoystick = new Joystick(0);
+ 
+
+  private final Joystick m_IntakeJoystick = new Joystick(0); 
   private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
 
   private double MaxSpeed = 1; // 6 meters per second desired top speed
   private double MaxAngularRate = .5 * Math.PI; // 3/4 of a rotation per second max angular velocity
 
-  /* Setting up bindings for necessary control of the swerve drive platform */
-  //private final CommandXboxController joystick = new CommandXboxController(0); // My joystick
   private final CommandJoystick joystick = new CommandJoystick(1);
   private final CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // My drivetrain
 
@@ -54,17 +57,11 @@ public class RobotContainer {
   private void configureBindings() {
     drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
         drivetrain.applyRequest(() -> drive.withVelocityX(-joystick.getY() * MaxSpeed) // Drive forward with
-                                                                                           // negative Y (forward)
+                                                                                       // negative Y (forward)
             .withVelocityY(-joystick.getX() * MaxSpeed) // Drive left with negative X (left)
             .withRotationalRate(-joystick.getTwist() * MaxAngularRate) // Drive counterclockwise with negative X (left)
         ));
-    //joystick.button(1).whileTrue();
-    //joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
-    //joystick.b().whileTrue(drivetrain
-        //.applyRequest(() -> point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))));
-
-    // reset the field-centric heading on left bumper press
-    //joystick.leftBumper().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
+    
 
     if (Utils.isSimulation()) {
       drivetrain.seedFieldRelative(new Pose2d(new Translation2d(), Rotation2d.fromDegrees(90)));
@@ -79,13 +76,15 @@ public class RobotContainer {
   public RobotContainer() {
     final JoystickButton IntakeButton = new JoystickButton(m_IntakeJoystick, 1);
     final JoystickButton ShootingButton = new JoystickButton(m_IntakeJoystick, 2);
-    //final JoystickButton ShootingButton = new JoystickButton(m_StageJoystick, 2)
-    IntakeButton.whileTrue(new IntakeCommand(m_IntakeSubsystem));
+    
+    IntakeButton.whileTrue(new StagingCommand(m_IntakeSubsystem));
     ShootingButton.whileTrue(new ShootingCommand(m_IntakeSubsystem));
-    //ShootingButton.toggleOnTrue(new ShootingCommand(m_IntakeSubsystem));
+    (IntakeButton.and(ShootingButton)).whileTrue(new shootandstage(m_IntakeSubsystem)); //composed command for multiple commands
+    
+
     configureBindings();
   }
-
+  
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
   }
