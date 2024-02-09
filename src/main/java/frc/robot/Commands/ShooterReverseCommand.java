@@ -4,18 +4,13 @@
 
 package frc.robot.Commands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.IntakeSubsystem;
-import edu.wpi.first.wpilibj.Timer;
 
-public class ShootingCommand extends Command {
-  public Timer m_timer;
-
+public class ShooterReverseCommand extends Command {
   IntakeSubsystem m_IntakeSubsystem;
-  double EngageTime;
-  /** Creates a new ShootingCommand. */
-  public ShootingCommand(IntakeSubsystem intakeSubsystem) {
+  /** Creates a new ShooterReverseCommand. */
+  public ShooterReverseCommand(IntakeSubsystem intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_IntakeSubsystem = intakeSubsystem;
     addRequirements(m_IntakeSubsystem);
@@ -23,28 +18,19 @@ public class ShootingCommand extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    EngageTime = System.currentTimeMillis();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-
-    m_IntakeSubsystem.Rev(.10);// Amp speed .1
-    
-
-    if (System.currentTimeMillis() - EngageTime > 200){
-      m_IntakeSubsystem.Deliver(-.25);// Amp -.25 time 800
-    }
-    
+    m_IntakeSubsystem.ShootReverse();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_IntakeSubsystem.ShootOff();
+    m_IntakeSubsystem.IntakeOff();
+    m_IntakeSubsystem.Rev(0);
   }
 
   // Returns true when the command should end.

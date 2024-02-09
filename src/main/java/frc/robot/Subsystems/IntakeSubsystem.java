@@ -116,6 +116,12 @@ public class IntakeSubsystem extends SubsystemBase {
       this.Rev(-.5);
       this.Deliver(.15);
     }
+    public void ShootReverse(){
+      ShootingMotor1.set(.2);
+      ShootingMotor2.set(-.2);
+      StagingMotor1.set(.15);
+      StagingMotor2.set(-.15);
+    }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

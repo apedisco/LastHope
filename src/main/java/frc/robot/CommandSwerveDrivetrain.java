@@ -24,7 +24,6 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
     private double m_lastSimTime;
     private boolean isSlowMode;
     public boolean isLocked;
-    private SwerveRequest.ApplyChassisSpeeds point = new SwerveRequest.ApplyChassisSpeeds();
 
     public CommandSwerveDrivetrain(SwerveDrivetrainConstants driveTrainConstants, double OdometryUpdateFrequency, SwerveModuleConstants... modules) {
         super(driveTrainConstants, OdometryUpdateFrequency, modules);
@@ -59,9 +58,5 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
     }
     public void drive(ChassisSpeeds chassisSpeeds){
         isSlowMode = !isSlowMode;
-    }
-
-    public void autonDrive(){
-        
     }
 }
