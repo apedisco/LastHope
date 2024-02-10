@@ -8,6 +8,7 @@ import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.CommandSwerveDrivetrain;
+import frc.robot.Subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 import com.ctre.phoenix6.Utils;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -15,17 +16,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 
-public class AutoTest extends Command {
-  CommandSwerveDrivetrain m_CommandSwerveDrivetrain;
+public class AutoShoot extends Command {
+  IntakeSubsystem m_IntakeSubsystem;
 
   private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric();
   private Timer m_time = new Timer();
   public double start_angle;
   
   /** Creates a new AutoTest. */
-  public AutoTest(CommandSwerveDrivetrain commandSwerveDrivetrain) {
+  public AutoShoot(IntakeSubsystem intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_CommandSwerveDrivetrain = commandSwerveDrivetrain;
+    m_IntakeSubsystem = intakeSubsystem;
+
+    
+
     
   }
 
@@ -33,14 +37,24 @@ public class AutoTest extends Command {
   @Override
   public void initialize() {
     m_time.start();
-    start_angle = m_CommandSwerveDrivetrain.getRotation3d().getZ();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-     
-      m_CommandSwerveDrivetrain.moveLinear(.2, 0, m_CommandSwerveDrivetrain, drive);
+      // if( Math.abs(m_CommandSwerveDrivetrain.getRotation3d().getZ() - start_angle) <  Math.PI- .0001){
+      //   m_CommandSwerveDrivetrain.rotation(.6, m_CommandSwerveDrivetrain, drive);
+      
+      // }
+      
+      // else {
+      //   m_CommandSwerveDrivetrain.rotation(0, m_CommandSwerveDrivetrain, drive);
+      // }
+
+      if (m_time.get() < 2){
+        //m_CommandSwerveDrivetrain.moveLinear(.2, 0, m_CommandSwerveDrivetrain, drive);
+        m_IntakeSubsystem.Rev(.4);
+      }
 
   }
 
@@ -48,11 +62,7 @@ public class AutoTest extends Command {
   @Override
   public void end(boolean interrupted) {
 
-     m_CommandSwerveDrivetrain.applyRequest(() -> drive.withVelocityX(0 ) // Drive forward with
-            // negative Y (forward)
-            .withVelocityY(0 ) // Drive left with negative X (left)
-            .withRotationalRate(0) // Drive counterclockwise with negative X (left)
-        );
+    m_IntakeSubsystem.Rev(0);
   }
 
   // Returns true when the command should end.

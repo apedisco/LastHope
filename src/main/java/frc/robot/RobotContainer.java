@@ -22,6 +22,7 @@ import frc.robot.Commands.ShooterReverseCommand;
 import frc.robot.Commands.ShootingCommand;
 import frc.robot.Commands.StagingCommand;
 import frc.robot.Commands.AutoTest;
+import frc.robot.Commands.AutoShoot;
 import frc.robot.Commands.shootandstage;
 import frc.robot.Subsystems.IntakeSubsystem;
 import frc.robot.generated.TunerConstants;
@@ -37,6 +38,8 @@ public class RobotContainer {
   private final Joystick m_IntakeJoystick = new Joystick(0); 
   private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
   private AutoTest m_AutoTest;
+  private AutoShoot m_AutoShoot;
+  private double start_angle;
 
   private double MaxSpeed = 2; // 6 meters per second desired top speed
   private double MaxAngularRate = .5 * Math.PI; // 3/4 of a rotation per second max angular velocity
@@ -77,23 +80,34 @@ public class RobotContainer {
 
   
   public RobotContainer() {
+    
+    start_angle = drivetrain.getRotation3d().getZ();
     final JoystickButton IntakeButton = new JoystickButton(m_IntakeJoystick, 1);
     final JoystickButton ShootingButton = new JoystickButton(m_IntakeJoystick, 2);
     final JoystickButton ShooterReverseButon = new JoystickButton(m_IntakeJoystick, 3);
     final JoystickButton AutoButton = new JoystickButton(m_IntakeJoystick, 4);
-
-
+   
     ShooterReverseButon.whileTrue(new ShooterReverseCommand(m_IntakeSubsystem));
     IntakeButton.whileTrue(new IntakeCommand(m_IntakeSubsystem));
     ShootingButton.whileTrue(new ShootingCommand(m_IntakeSubsystem));
     (IntakeButton.and(ShootingButton)).whileTrue(new shootandstage(m_IntakeSubsystem)); //composed command for multiple commands
     AutoButton.onTrue(new AutoTest(drivetrain));
     
-
+    
     configureBindings();
+
+     m_AutoTest = new AutoTest(drivetrain);
+     m_AutoShoot = new AutoShoot(m_IntakeSubsystem);
+
   }
   
+  public void presentRotation(){
+    SmartDashboard.putNumber("offset", Math.abs(drivetrain.getRotation3d().getZ() - start_angle));
+  }
+
+
   public Command getAutonomousCommand() {
     return m_AutoTest;
+    //return m_AutoShoot;
   }
 }

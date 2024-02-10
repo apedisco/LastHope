@@ -59,4 +59,21 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
     public void drive(ChassisSpeeds chassisSpeeds){
         isSlowMode = !isSlowMode;
     }
+
+    public void rotation(double rotationRate, SwerveDrivetrain drivetrain, SwerveRequest.FieldCentric driveRequest){
+        drivetrain.setControl( driveRequest.withVelocityX(0 ) // Drive forward with
+            // negative Y (forward)
+            .withVelocityY(0 ) // Drive left with negative X (left)
+            .withRotationalRate(rotationRate) // Drive counterclockwise with negative X (left)
+        );
+    }
+
+    public void moveLinear(double xVel, double yVel, SwerveDrivetrain drivetrain, SwerveRequest.FieldCentric driveRequest){
+        drivetrain.setControl( driveRequest.withVelocityX(xVel ) // Drive forward with
+            // negative Y (forward)
+            .withVelocityY(yVel ) // Drive left with negative X (left)
+            .withRotationalRate(0) // Drive counterclockwise with negative X (left)
+        );
+    }
+
 }
