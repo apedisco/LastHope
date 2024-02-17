@@ -4,6 +4,7 @@
 
 package frc.robot.Subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
@@ -21,6 +22,9 @@ public class IntakeSubsystem extends SubsystemBase {
   public CANSparkFlex StagingMotor2;
   public CANSparkFlex ShootingMotor1;
   public CANSparkFlex ShootingMotor2;
+
+  public DigitalInput StagingSensor = new DigitalInput(0);
+
 
   public double engage_time;
 
@@ -69,7 +73,6 @@ public class IntakeSubsystem extends SubsystemBase {
 
       IntakeMotor1.set(.2);
       IntakeMotor2.set(.2);
-      
       StagingMotor1.set(-.15);
       StagingMotor2.set(.15);
     }

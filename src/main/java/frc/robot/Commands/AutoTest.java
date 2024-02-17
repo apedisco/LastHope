@@ -7,7 +7,7 @@ package frc.robot.Commands;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.CommandSwerveDrivetrain;
+import frc.robot.Subsystems.CommandSwerveDrivetrain;
 import edu.wpi.first.wpilibj.Timer;
 import com.ctre.phoenix6.Utils;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -41,7 +41,6 @@ public class AutoTest extends Command {
   public void execute() {
      
       m_CommandSwerveDrivetrain.moveLinear(.2, 0, m_CommandSwerveDrivetrain, drive);
-
   }
 
   // Called once the command ends or is interrupted.

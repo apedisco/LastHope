@@ -32,11 +32,11 @@ public class ShootingCommand extends Command {
   public void execute() {
     
 
-    m_IntakeSubsystem.Rev(.1);// Amp speed .1// Speaker Speed? .5
+    m_IntakeSubsystem.Rev(.10);// Amp speed .1// Speaker Speed? .5
     
 
     if (System.currentTimeMillis() - EngageTime > 200){
-      m_IntakeSubsystem.Deliver(-.25);// Amp -.25 time 200//Speaker -.5 time 600
+      m_IntakeSubsystem.Deliver(-.30);// Amp -.25 time 200//Speaker -.5 time 600
     }
     
   }

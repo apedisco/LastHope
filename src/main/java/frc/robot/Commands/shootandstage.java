@@ -27,7 +27,7 @@ public class shootandstage extends Command {
   @Override
   public void execute() {
     m_IntakeSubsystem.IntakeIn();
-    m_IntakeSubsystem.Rev(.10);
+    m_IntakeSubsystem.Rev(.12);//.10
   }
 
   // Called once the command ends or is interrupted.
