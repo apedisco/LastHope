@@ -29,12 +29,18 @@ import frc.robot.Commands.LeftClimbCommand;
 import frc.robot.Commands.LeftClimbUpCommand;
 import frc.robot.Commands.RightCLimbUpCommand;
 import frc.robot.Commands.RightClimbCommand;
+import frc.robot.Commands.ShootHighCommand;
+import frc.robot.Commands.ShootTrapCommand;
 import frc.robot.Commands.ShooterReverseCommand;
 import frc.robot.Commands.ShootingCommand;
 import frc.robot.Commands.StagingCommand;
 import frc.robot.Commands.AutoTest;
+import frc.robot.Commands.CommandGroupTest;
+import frc.robot.AutoCommands.AutoShootHighSeqential;
+import frc.robot.AutoCommands.AutoShootHighSeqential2;
 import frc.robot.Commands.DualClimbCommand;
 import frc.robot.Commands.DualClimbUpCommand;
+import frc.robot.AutoCommands.AutoShootHighSeqential;
 import frc.robot.Commands.AutoShoot;
 import frc.robot.Commands.shootandstage;
 import frc.robot.Subsystems.CommandSwerveDrivetrain;
@@ -50,8 +56,9 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class RobotContainer {
   // SlewRateLimiter is used to make joystick inputs more gentle; 1/3 sec from 0 to 1;
-  private final SlewRateLimiter m_SpeedLimiter = new SlewRateLimiter(.8); 
-  private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(0);
+  private final SlewRateLimiter m_XSpeedLimiter = new SlewRateLimiter(.95); 
+  private final SlewRateLimiter m_ySpeedLimiter = new SlewRateLimiter(.95); 
+  private final SlewRateLimiter m_rotLimiter = new SlewRateLimiter(.95);
 
   private final Joystick m_IntakeJoystick = new Joystick(0); 
   private final Joystick m_DriveJoystick = new Joystick(1);
@@ -85,10 +92,10 @@ public class RobotContainer {
 
   private void configureBindings() {
     drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
-        drivetrain.applyRequest(() -> drive.withVelocityX(-joystick.getY() * MaxSpeed) // Drive forward with
+        drivetrain.applyRequest(() -> drive.withVelocityX((-joystick.getY()) * MaxSpeed) // Drive forward with
                                                                                        // negative Y (forward)
-            .withVelocityY(-joystick.getX() * MaxSpeed) // Drive left with negative X (left)
-            .withRotationalRate(-joystick.getTwist() * MaxAngularRate) // Drive counterclockwise with negative X (left)
+            .withVelocityY((-joystick.getX()) * MaxSpeed) // Drive left with negative X (left)
+            .withRotationalRate((-joystick.getTwist()) * MaxAngularRate) // Drive counterclockwise with negative X (left)
         ));
 
         // drivetrain.setDefaultCommand( // Drivetrain will execute this command periodically
@@ -123,7 +130,10 @@ public class RobotContainer {
     
 
    // SmartDashboard.putData("Auto Chooser", autoChooser);
-   NamedCommands.registerCommand("IntakingCommand", new IntakeCommand(m_IntakeSubsystem));
+  //  NamedCommands.registerCommand("IntakingCommand", new IntakeCommand(m_IntakeSubsystem));
+  NamedCommands.registerCommand("IntakingCommand", new CommandGroupTest(m_IntakeSubsystem));
+  NamedCommands.registerCommand("ShootHighCommand", new AutoShootHighSeqential(m_IntakeSubsystem));
+  NamedCommands.registerCommand("ShootHighCommand2", new AutoShootHighSeqential2(m_IntakeSubsystem));
         
    // m_chooser.setDefaultOption("Tests");
    // m_chooser.addOption("Nothing");
@@ -144,6 +154,9 @@ public class RobotContainer {
     final JoystickButton LeftClimbUpButton = new JoystickButton(m_IntakeJoystick, 7);
     final JoystickButton RightClimbUpButton = new JoystickButton(m_IntakeJoystick, 8);
     final JoystickButton DualClimbUpButton = new JoystickButton(m_IntakeJoystick, 10);
+    final JoystickButton ShootHighButton = new JoystickButton(m_ShootingJoystick, 1);
+    final JoystickButton shootTrapButton = new JoystickButton(m_ShootingJoystick, 2);
+
     
 
    
@@ -162,6 +175,8 @@ public class RobotContainer {
     RightClimbUpButton.whileTrue(new RightCLimbUpCommand(m_IntakeSubsystem));
     (LeftClimbUpButton.and(RightClimbUpButton)).whileTrue(new DualClimbUpCommand(m_IntakeSubsystem));
     DualClimbUpButton.whileTrue(new DualClimbUpCommand(m_IntakeSubsystem));
+    ShootHighButton.whileTrue(new ShootHighCommand(m_IntakeSubsystem));
+    shootTrapButton.whileTrue(new ShootTrapCommand(m_IntakeSubsystem));
 
     //AutoButton.onTrue(new AutoTest(drivetrain));
     // final JoystickButton AutoButton = new JoystickButton(m_IntakeJoystick, 4);

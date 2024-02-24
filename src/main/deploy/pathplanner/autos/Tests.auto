@@ -18,16 +18,28 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "IntakingCommand"
+                  "name": "ShootHighCommand"
                 }
               },
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Example Path"
+                  "pathName": "Path1"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IntakingCommand"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "sequential",
+          "data": {
+            "commands": []
           }
         }
       ]
