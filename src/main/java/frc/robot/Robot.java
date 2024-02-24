@@ -7,6 +7,7 @@ package frc.robot;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 
 // import java.io.IOException;
 // import java.nio.file.Path;
@@ -46,7 +47,6 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
   private SwerveRequest.FieldCentric drive;
-
 
   @Override
   public void robotInit() {

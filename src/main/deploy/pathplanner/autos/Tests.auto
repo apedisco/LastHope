@@ -12,28 +12,22 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
+          "type": "sequential",
           "data": {
             "commands": [
               {
-                "type": "wait",
+                "type": "named",
                 "data": {
-                  "waitTime": 3.0
+                  "name": "IntakingCommand"
                 }
               },
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "IntakeCommand"
+                  "pathName": "Example Path"
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Example Path"
           }
         }
       ]

@@ -6,15 +6,11 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.IntakeSubsystem;
-import edu.wpi.first.wpilibj.Timer;
 
-public class ShootingCommand extends Command {
-  public Timer m_timer;
-
+public class LeftClimbCommand extends Command {
   IntakeSubsystem m_IntakeSubsystem;
-  private double EngageTime;
-  /** Creates a new ShootingCommand. */
-  public ShootingCommand(IntakeSubsystem intakeSubsystem) {
+  /** Creates a new LeftClimbCommand. */
+  public LeftClimbCommand(IntakeSubsystem intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_IntakeSubsystem = intakeSubsystem;
     addRequirements(m_IntakeSubsystem);
@@ -22,31 +18,18 @@ public class ShootingCommand extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    EngageTime = System.currentTimeMillis();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-
-    m_IntakeSubsystem.Rev(.1);// Amp speed .09// Speaker Speed? .5
-    
-
-    if (System.currentTimeMillis() - EngageTime > 200){
-      m_IntakeSubsystem.Deliver(-.3);
-     // m_IntakeSubsystem.Intake();
-      // Amp -.30 time 200//Speaker -.5 time 600
-    }
-    
+    m_IntakeSubsystem.LeftClimbDown();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_IntakeSubsystem.ShootOff();
-   // m_IntakeSubsystem.Outtake();
+    m_IntakeSubsystem.LeftCLimbStop();
   }
 
   // Returns true when the command should end.

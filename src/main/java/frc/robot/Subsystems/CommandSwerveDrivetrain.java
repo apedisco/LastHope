@@ -16,6 +16,7 @@ import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.Odometry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
@@ -82,7 +83,6 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
         for (var moduleLocation : m_moduleLocations) {
             driveBaseRadius = Math.max(driveBaseRadius, moduleLocation.getNorm());
         }
-
         AutoBuilder.configureHolonomic(
             ()->this.getState().Pose, // Supplier of current robot pose
             this::seedFieldRelative,  // Consumer for seeding pose against auto
@@ -107,7 +107,9 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
             },
             this); // Subsystem for requirements
     }
-
+    // public void getPose(){
+    //     return Odometry.getposeMeters();
+    // }
     public Command applyRequest(Supplier<SwerveRequest> requestSupplier) {
         return run(() -> this.setControl(requestSupplier.get()));
     }
