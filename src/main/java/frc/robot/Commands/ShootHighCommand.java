@@ -8,13 +8,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 
-public class ShootingCommand extends Command {
+public class ShootHighCommand extends Command {
   public Timer m_timer;
 
   IntakeSubsystem m_IntakeSubsystem;
   private double EngageTime;
   /** Creates a new ShootingCommand. */
-  public ShootingCommand(IntakeSubsystem intakeSubsystem) {
+  public ShootHighCommand(IntakeSubsystem intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_IntakeSubsystem = intakeSubsystem;
     addRequirements(m_IntakeSubsystem);
