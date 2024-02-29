@@ -35,9 +35,10 @@ import frc.robot.Commands.ShooterReverseCommand;
 import frc.robot.Commands.ShootingCommand;
 import frc.robot.Commands.StagingCommand;
 import frc.robot.Commands.AutoTest;
-import frc.robot.Commands.CommandGroupTest;
+//import frc.robot.Commands.CommandGroupTest;
 import frc.robot.AutoCommands.AutoShootHighSeqential;
 import frc.robot.AutoCommands.AutoShootHighSeqential2;
+import frc.robot.AutoCommands.IntakeSeqential;
 import frc.robot.Commands.DualClimbCommand;
 import frc.robot.Commands.DualClimbUpCommand;
 import frc.robot.AutoCommands.AutoShootHighSeqential;
@@ -51,6 +52,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.util.sendable.Sendable;
 
 
 
@@ -71,8 +73,8 @@ public class RobotContainer {
   
   private final SendableChooser<Command> autoChooser;
 
-  private double MaxSpeed = 4; // 6 meters per second desired top speed
-  private double MaxAngularRate = 1 * Math.PI; // 3/4 of a rotation per second max angular velocity
+  private double MaxSpeed = 1; // 6 meters per second desired top speed
+  private double MaxAngularRate = .25 * Math.PI; // 3/4 of a rotation per second max angular velocity
 
   private final CommandJoystick joystick = new CommandJoystick(1);
   public final CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain; // My drivetrain
@@ -125,18 +127,15 @@ public class RobotContainer {
 
  
   public RobotContainer() {
-    autoChooser = AutoBuilder.buildAutoChooser();
 
     
 
-   // SmartDashboard.putData("Auto Chooser", autoChooser);
   //  NamedCommands.registerCommand("IntakingCommand", new IntakeCommand(m_IntakeSubsystem));
-  NamedCommands.registerCommand("IntakingCommand", new CommandGroupTest(m_IntakeSubsystem));
+  //  NamedCommands.registerCommand("IntakingCommand", new IntakeSeqential(m_IntakeSubsystem));
+  NamedCommands.registerCommand("IntakingCommand", new IntakingCommand(m_IntakeSubsystem).withTimeout(2));
   NamedCommands.registerCommand("ShootHighCommand", new AutoShootHighSeqential(m_IntakeSubsystem));
-  NamedCommands.registerCommand("ShootHighCommand2", new AutoShootHighSeqential2(m_IntakeSubsystem));
+  //NamedCommands.registerCommand("ShootHighCommand2", new AutoShootHighSeqential2(m_IntakeSubsystem));
         
-   // m_chooser.setDefaultOption("Tests");
-   // m_chooser.addOption("Nothing");
    //, new balanceAutoInside(s_Swerve, s_Intake)
    // SmartDashboard.putNumber("SpeedLimit", 1);
 
@@ -156,6 +155,7 @@ public class RobotContainer {
     final JoystickButton DualClimbUpButton = new JoystickButton(m_IntakeJoystick, 10);
     final JoystickButton ShootHighButton = new JoystickButton(m_ShootingJoystick, 1);
     final JoystickButton shootTrapButton = new JoystickButton(m_ShootingJoystick, 2);
+    final JoystickButton ResetOrientation = new JoystickButton(m_ShootingJoystick, 3);
 
     
 
@@ -177,11 +177,17 @@ public class RobotContainer {
     DualClimbUpButton.whileTrue(new DualClimbUpCommand(m_IntakeSubsystem));
     ShootHighButton.whileTrue(new ShootHighCommand(m_IntakeSubsystem));
     shootTrapButton.whileTrue(new ShootTrapCommand(m_IntakeSubsystem));
+    ResetOrientation.whileTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
 
     //AutoButton.onTrue(new AutoTest(drivetrain));
     // final JoystickButton AutoButton = new JoystickButton(m_IntakeJoystick, 4);
     
     configureBindings();
+    // SendableChooser<Command> m_chooser = new SendableChooser<>();
+      autoChooser = AutoBuilder.buildAutoChooser();
+    //  SmartDashboard.putData("Autonomous", m_chooser);
+    //  m_chooser.setDefaultOption("Tests");
+    //  m_chooser.addOption("Nothing");
      //m_AutoTest = new AutoTest(drivetrain);
      //m_AutoShoot = new AutoShoot(m_IntakeSubsystem);
   }
@@ -195,8 +201,8 @@ public class RobotContainer {
   
     // PathPlannerPath path = PathPlannerPath.fromPathFile("Tests");
      
-   //return autoChooser.getSelected();
+  // return autoChooser.getSelected();
 
-    return new PathPlannerAuto("Tests"); 
+    return new PathPlannerAuto("AutoAttack"); 
   }
 }

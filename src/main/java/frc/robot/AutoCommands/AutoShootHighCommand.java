@@ -20,26 +20,23 @@ public class AutoShootHighCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.println("ShootingItilizing");
     EngageTime = System.currentTimeMillis();
     m_IntakeSubsystem.Rev(.55);
     
-   while(System.currentTimeMillis() - EngageTime > 0){
+   while(true){
     m_IntakeSubsystem.Rev(.55);
       if(System.currentTimeMillis() - EngageTime > 600 && System.currentTimeMillis() - EngageTime < 800){
         m_IntakeSubsystem.Rev(.55);
         m_IntakeSubsystem.Deliver(-.5);
       }
+
       else if(System.currentTimeMillis() - EngageTime > 800){
         m_IntakeSubsystem.ShootOff();
-        System.out.println("elif");
+        System.out.println("ShootingDoneIntilizing");
         break;
       }
-     // m_IntakeSubsystem.Intake();
-      // Amp -.30 time 200//Speaker -.5 time 600//Trap -.5 time 800
       }
-    
-    
-   
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -49,6 +46,7 @@ public class AutoShootHighCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    System.out.println("ShootingDone");
     m_IntakeSubsystem.ShootOff();
   }
 

@@ -15,10 +15,13 @@ public class IntakingCommand extends Command {
   IntakeSubsystem m_IntakeSubsystem;
   private double EngageTime;
   boolean cancelCommand;
+  private boolean StagingSensor;
+  
   /** Creates a new IntakingCommand. */
   public IntakingCommand(IntakeSubsystem intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_IntakeSubsystem = intakeSubsystem;
+    
     addRequirements(m_IntakeSubsystem);
   }
 
@@ -33,8 +36,10 @@ public class IntakingCommand extends Command {
   @Override
   public void execute() {
    m_IntakeSubsystem.IntakeIn();
+   StagingSensor = m_IntakeSubsystem.StagingSensor.get();
     if(m_IntakeSubsystem.StagingSensor.get()){
        m_IntakeSubsystem.IntakeIn();
+       System.out.println(StagingSensor);
     }
     else{
       m_IntakeSubsystem.IntakeOff();

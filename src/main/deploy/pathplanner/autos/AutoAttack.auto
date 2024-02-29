@@ -2,29 +2,23 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.2535268313752226,
-      "y": 5.519087794933904
+      "x": 1.2,
+      "y": 5.7
     },
-    "rotation": 0.0
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "sequential",
+          "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "named",
-                "data": {
-                  "name": "ShootHighCommand"
-                }
-              },
-              {
                 "type": "path",
                 "data": {
-                  "pathName": "Path1"
+                  "pathName": "path7"
                 }
               },
               {
@@ -37,9 +31,9 @@
           }
         },
         {
-          "type": "sequential",
+          "type": "path",
           "data": {
-            "commands": []
+            "pathName": "path8"
           }
         }
       ]

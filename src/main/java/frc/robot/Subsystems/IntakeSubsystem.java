@@ -8,9 +8,11 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Commands.RightCLimbUpCommand;
+import frc.robot.Telemetry;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.pathplanner.lib.path.PathPlannerTrajectory.State;
 //import com.ctre.phoenixpro.signals.NeutralModeValue;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -28,8 +30,6 @@ public class IntakeSubsystem extends SubsystemBase {
   public TalonFX ClimbMotorR;
   //Creats the Break Beam sensor and gives it the DIO port;
   public DigitalInput StagingSensor = new DigitalInput(0);
-
-
   public double engage_time;
 
   /** Creates a new IntakeSubsystem. */
@@ -160,8 +160,8 @@ public class IntakeSubsystem extends SubsystemBase {
       StagingMotor2.set(0);
     }
     public void ShootOn(){
-      this.Rev(-.5);
-      this.Deliver(.15);
+      ShootingMotor1.set(-.5);
+      StagingMotor2.set(.2);
     }
     public void ShootReverse(){
       ShootingMotor1.set(.2);

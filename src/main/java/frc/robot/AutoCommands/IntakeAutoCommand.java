@@ -15,44 +15,44 @@ public class IntakeAutoCommand extends Command {
   IntakeSubsystem m_IntakeSubsystem;
   private double EngageTime;
   private boolean cancelCommand;
+  private boolean StagingSensor;
   /** Creates a new IntakingCommand. */
   public IntakeAutoCommand(IntakeSubsystem intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_IntakeSubsystem = intakeSubsystem;
+    
     addRequirements(m_IntakeSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    EngageTime = System.currentTimeMillis();
      m_IntakeSubsystem.IntakeIn();
+     System.out.println("IntakeIntilize");
     
-
-    while(m_IntakeSubsystem.StagingSensor.get()){
+  //Once the command is called by the Sequential it runs the initalize this is to prevent it from getting stuck in the execute;
+    while(true){
+      StagingSensor = m_IntakeSubsystem.StagingSensor.get();
+  //Once the command is initiaized it runs intake till the beam brake sensor reads false;
       m_IntakeSubsystem.IntakeIn();
+      if(StagingSensor == false){
+  //If the beam break reads a objeck it shuts the intake off and breaks the loop.
+        m_IntakeSubsystem.IntakeOff();
+        System.out.println("IntakeDoneRunning");
+        break;
+      }
     }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    // m_IntakeSubsystem.IntakeIn();
-    // System.out.println(m_IntakeSubsystem.StagingSensor.get());
-    // if(m_IntakeSubsystem.StagingSensor.get()){
-    //    m_IntakeSubsystem.IntakeIn();
-    // }
-    // else{
-    //   m_IntakeSubsystem.IntakeOff();
-    //   cancelCommand = true;
-    //   // this.end(true);
-    // }
-   
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-   
+    System.out.println("IntakingDone");
     m_IntakeSubsystem.IntakeOff();
   }
 
