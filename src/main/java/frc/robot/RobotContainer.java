@@ -131,7 +131,7 @@ public class RobotContainer {
     
 
   //  NamedCommands.registerCommand("IntakingCommand", new IntakeCommand(m_IntakeSubsystem));
-  //  NamedCommands.registerCommand("IntakingCommand", new IntakeSeqential(m_IntakeSubsystem));
+    NamedCommands.registerCommand("Intaking2Command", new IntakeSeqential(m_IntakeSubsystem));
   NamedCommands.registerCommand("IntakingCommand", new IntakingCommand(m_IntakeSubsystem).withTimeout(2));
   NamedCommands.registerCommand("ShootHighCommand", new AutoShootHighSeqential(m_IntakeSubsystem));
   //NamedCommands.registerCommand("ShootHighCommand2", new AutoShootHighSeqential2(m_IntakeSubsystem));
