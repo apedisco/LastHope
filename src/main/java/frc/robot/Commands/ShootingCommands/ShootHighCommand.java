@@ -2,57 +2,53 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.AutoCommands;
+package frc.robot.Commands.ShootingCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Robot;
 import frc.robot.Subsystems.IntakeSubsystem;
+import edu.wpi.first.wpilibj.Timer;
 
-public class AutoShootHighCommand extends Command {
+public class ShootHighCommand extends Command {
+  public Timer m_timer;
+
   IntakeSubsystem m_IntakeSubsystem;
   private double EngageTime;
-  /** Creates a new AutoShootHighCommand. */
-  public AutoShootHighCommand(IntakeSubsystem intakeSubsystem) {
+  /** Creates a new ShootingCommand. */
+  public ShootHighCommand(IntakeSubsystem intakeSubsystem) {
+    // Use addRequirements() here to declare subsystem dependencies.
     m_IntakeSubsystem = intakeSubsystem;
     addRequirements(m_IntakeSubsystem);
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("ShootingItilizing");
     EngageTime = System.currentTimeMillis();
-    m_IntakeSubsystem.Rev(.55);
-    
-   while(true){
-    m_IntakeSubsystem.Rev(.8);
-      if(System.currentTimeMillis() - EngageTime > 600 && System.currentTimeMillis() - EngageTime < 900){
-        m_IntakeSubsystem.Rev(.8);
-        m_IntakeSubsystem.Deliver(-.5);
-      }
-
-      else if(System.currentTimeMillis() - EngageTime > 800){
-        m_IntakeSubsystem.ShootOff();
-        System.out.println("ShootingDoneIntilizing");
-        break;
-      }
-      }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    //Trap.45// Amp speed .1// Speaker Speed? .5
+      m_IntakeSubsystem.Rev(.7);
+      m_IntakeSubsystem.Deliver(-.6);
+      Robot.motorLightOutput.set(true);
+     // m_IntakeSubsystem.Intake();
+      // Amp -.30 time 200//Speaker -.5 time 600//Trap -.5 time 800
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    System.out.println("ShootingDone");
     m_IntakeSubsystem.ShootOff();
+    Robot.motorLightOutput.set(false);
+   // m_IntakeSubsystem.Outtake();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

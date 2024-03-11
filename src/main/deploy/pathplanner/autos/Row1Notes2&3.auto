@@ -1,0 +1,55 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.61,
+      "y": 4.483681039434152
+    },
+    "rotation": -38.5
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Row1Note3Grab"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Row1Note3Shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "RevAndDeliverSpeaker"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Row1Note2Grab"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Row1Note2Shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "RevAndDeliverSpeaker"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

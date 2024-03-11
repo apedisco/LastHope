@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.Robot;
 
 
 public class IntakeAutoCommand extends Command {
@@ -33,7 +34,8 @@ public class IntakeAutoCommand extends Command {
     
   //Once the command is called by the Sequential it runs the initalize this is to prevent it from getting stuck in the execute;
     while(true){
-      StagingSensor = m_IntakeSubsystem.StagingSensor.get();
+      // StagingSensor = m_IntakeSubsystem.StagingSensor.get();
+      StagingSensor = Robot.MasterStagingSensor.get();
   //Once the command is initiaized it runs intake till the beam brake sensor reads false;
       m_IntakeSubsystem.IntakeIn();
       if(StagingSensor == false){

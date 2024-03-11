@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModule.DriveRequestType;
+import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveRequest;
 
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
@@ -25,6 +26,8 @@ import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 // import edu.wpi.first.wpilibj.DriverStation;
 // import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -44,9 +47,13 @@ import frc.robot.Subsystems.CommandSwerveDrivetrain;
 import frc.robot.generated.TunerConstants;
 
 public class Robot extends TimedRobot {
+  Pigeon2 pigeon2;
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
   private SwerveRequest.FieldCentric drive;
+  public static DigitalInput MasterStagingSensor = new DigitalInput(0);
+  public static DigitalOutput LightOutput = new DigitalOutput(3);
+  public static DigitalOutput motorLightOutput = new DigitalOutput(2);
 
   @Override
   public void robotInit() {
@@ -55,6 +62,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
+    if (MasterStagingSensor.get()){
+      LightOutput.set(true);
+     
+    } else {
+      LightOutput.set(false);
+     
+    }
     CommandScheduler.getInstance().run(); 
 
   NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -62,6 +76,7 @@ public class Robot extends TimedRobot {
   NetworkTableEntry ty = table.getEntry("ty");
   NetworkTableEntry ta = table.getEntry("ta");
   NetworkTableEntry tid = table.getEntry("tid");
+  // NetworkTableEntry gga = table.getEntry("gga");
   //NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getDoubleArray(new double[6]);
 
   
@@ -71,6 +86,7 @@ public class Robot extends TimedRobot {
   double y = ty.getDouble(0.0);
   double area = ta.getDouble(0.0);
   double aid = tid.getDouble(0);
+  // double GGA = pigeon2.getAngle();
 
   
   //post to smart dashboard periodically
@@ -78,8 +94,9 @@ public class Robot extends TimedRobot {
   SmartDashboard.putNumber("LimelightY", y);
   SmartDashboard.putNumber("LimelightArea", area);
   SmartDashboard.putNumber("tid", aid);
+  // SmartDashboard.putNumber("gga", GGA);
+  //SmartDashboard.putNumber(, aid)
   m_robotContainer.presentRotation();
-
   
 
   }
@@ -118,7 +135,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
   }
-
+  
   @Override
   public void teleopPeriodic() {}
 

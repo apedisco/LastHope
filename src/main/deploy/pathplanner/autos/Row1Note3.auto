@@ -1,0 +1,43 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.6,
+      "y": 4.5
+    },
+    "rotation": -38.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootHighCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Row1Note3Grab"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Row1Note3Shoot"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootHighCommand"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

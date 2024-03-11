@@ -7,8 +7,8 @@ package frc.robot.Subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.Commands.RightCLimbUpCommand;
 import frc.robot.Telemetry;
+import frc.robot.Commands.TestCommands.ClimbCommands.RightCLimbUpCommand;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -29,8 +29,9 @@ public class IntakeSubsystem extends SubsystemBase {
   public TalonFX ClimbMotorL;
   public TalonFX ClimbMotorR;
   //Creats the Break Beam sensor and gives it the DIO port;
-  public DigitalInput StagingSensor = new DigitalInput(0);
+  // public DigitalInput StagingSensor = new DigitalInput(0);
   public double engage_time;
+  //public DigitalInput StagingSensor;
 
   /** Creates a new IntakeSubsystem. */
   public IntakeSubsystem() {
@@ -84,9 +85,34 @@ public class IntakeSubsystem extends SubsystemBase {
       System.out.println("Missing Right Climb Motor");
     }
   }
+
+  //StagingSensor = Robot.MasterStagingSensor;
      
   // ClimbMotorL.setInverted(True);
   //Creates classes that are called by the commands;
+    public void RightCLimb(double RightClimbMotorSpeed){
+      double NewRightClimbMotorSpeed = (RightClimbMotorSpeed- (0.3*RightClimbMotorSpeed));
+      ClimbMotorR.set(NewRightClimbMotorSpeed);
+    }
+    public void LeftClimb(double LeftClimbMotorSpeed){
+      double NewLeftClimbMotorSpeed = (LeftClimbMotorSpeed-(0.3*LeftClimbMotorSpeed));
+      ClimbMotorL.set(NewLeftClimbMotorSpeed);
+    }
+    public void NoteDumpOn(){
+      IntakeMotor1.set(1);
+      IntakeMotor2.set(-1);
+      StagingMotor1.set(-1);
+      StagingMotor2.set(-1);
+    }
+    public void NoteDumpOff(){
+      IntakeMotor1.set(0);
+      IntakeMotor2.set(0);
+      StagingMotor1.set(0);
+      StagingMotor2.set(0);
+    }
+    public void AntiNote(){
+      IntakeMotor1.set(1);
+    }
     public void RightCLimbUp(){
       ClimbMotorR.set(-1);
     }
