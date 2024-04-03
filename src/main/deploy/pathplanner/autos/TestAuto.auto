@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.61,
-      "y": 4.483681039434152
+      "x": 0.35,
+      "y": 4.2
     },
-    "rotation": -38.5
+    "rotation": 0.0
   },
   "command": {
     "type": "sequential",
@@ -14,42 +14,54 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Row1Note3Grab"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Row1Note3Shoot"
+            "pathName": "Test Path 1"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "RevAndDeliverSpeaker"
+            "name": "ShootHighCommand"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Row1Note2Grab"
+            "pathName": "Test Path 2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Row1Note2Shoot"
+            "pathName": "Test Path 3"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "RevAndDeliverSpeaker"
+            "name": "ShootHighCommand"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Test Path 4"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Test Path 5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootHighCommand"
           }
         }
       ]
     }
   },
-  "folder": "Row 1",
+  "folder": null,
   "choreoAuto": false
 }

@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7206357269857403,
-        "y": 4.573750861787438
+        "x": 0.3541492797271315,
+        "y": 4.192604956638485
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.248376211038137,
-        "y": 3.093145614862659
+        "x": 1.3541492797271364,
+        "y": 4.192604956638485
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.6085489313835772,
-        "y": 0.4691026524910205
+        "x": 3.681846220835299,
+        "y": 1.4659457890344358
       },
       "prevControl": {
-        "x": 3.417975978809101,
-        "y": 1.1287782575565153
+        "x": 2.681846220835299,
+        "y": 1.4659457890344358
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,9 +43,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Misc. Paths",
+  "folder": "FarNotes",
   "previewStartingState": {
-    "rotation": -55.0,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

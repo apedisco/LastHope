@@ -18,22 +18,9 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Row1Note2Get"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakingCommand"
-                }
-              }
-            ]
+            "pathName": "Row1Note2Get"
           }
         },
         {
@@ -49,22 +36,9 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Row1Note3Get"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "IntakingCommand"
-                }
-              }
-            ]
+            "pathName": "Row1Note3Get"
           }
         },
         {
@@ -80,29 +54,9 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Row1Note1Get"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "IntakingCommand"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
+            "pathName": "Copy of Row1Note1Get"
           }
         },
         {
@@ -120,6 +74,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "Row 1",
   "choreoAuto": false
 }

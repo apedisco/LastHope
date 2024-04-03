@@ -6,14 +6,22 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.IntakeSubsystem;
+import frc.robot.Subsystems.ShootingSubsystem;
+import frc.robot.Subsystems.StagingSubsystem;
 
 public class ShooterReverseCommand extends Command {
   IntakeSubsystem m_IntakeSubsystem;
+  ShootingSubsystem m_ShootingSubsystem;
+  StagingSubsystem m_StagingSubsystem;
   /** Creates a new ShooterReverseCommand. */
-  public ShooterReverseCommand(IntakeSubsystem intakeSubsystem) {
+  public ShooterReverseCommand(IntakeSubsystem intakeSubsystem, ShootingSubsystem shootingSubsystem, StagingSubsystem stagingSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_IntakeSubsystem = intakeSubsystem;
     addRequirements(m_IntakeSubsystem);
+    m_ShootingSubsystem = shootingSubsystem;
+    addRequirements(m_ShootingSubsystem);
+    m_StagingSubsystem = stagingSubsystem;
+    addRequirements(m_StagingSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -23,14 +31,22 @@ public class ShooterReverseCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_IntakeSubsystem.ShootReverse();
+    m_ShootingSubsystem.ShootingMotor1.set(-.5);
+    m_ShootingSubsystem.ShootingMotor2.set(-.5);
+    m_StagingSubsystem.StagingMotor1.set(-0.15);
+    m_StagingSubsystem.StagingMotor2.set(-0.15);
+    m_IntakeSubsystem.IntakeMotor1.set(-0.1);
+    m_IntakeSubsystem.IntakeMotor2.set(-0.1);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_IntakeSubsystem.IntakeOff();
-    m_IntakeSubsystem.Rev(0);
+    m_IntakeSubsystem.IntakeMotor1.set(0);
+    m_IntakeSubsystem.IntakeMotor2.set(0);
+    m_StagingSubsystem.StagingMotor1.set(0);
+    m_StagingSubsystem.StagingMotor2.set(0);
+    m_ShootingSubsystem.Rev(0);
   }
 
   // Returns true when the command should end.

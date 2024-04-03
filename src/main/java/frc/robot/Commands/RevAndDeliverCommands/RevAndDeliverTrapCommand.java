@@ -4,16 +4,25 @@
 
 package frc.robot.Commands.RevAndDeliverCommands;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Subsystems.IntakeSubsystem;
+import frc.robot.Subsystems.ShootingSubsystem;
+import frc.robot.Subsystems.StagingSubsystem;
 
 public class RevAndDeliverTrapCommand extends Command {
-  IntakeSubsystem m_IntakeSubsystem;
+  ShootingSubsystem m_ShootingSubsystem;
+  StagingSubsystem m_StagingSubsystem;
+  Joystick m_DriveJoystick;
+  Joystick m_IntakeJoystick;
+  // boolean NoteLightsControl;
   /** Creates a new RevAndDeliverTrapCommand. */
-  public RevAndDeliverTrapCommand(IntakeSubsystem intakeSubsystem) {
+  public RevAndDeliverTrapCommand(ShootingSubsystem shootingSubsystem, StagingSubsystem stagingSubsystem, Joystick DriveJoystick, Joystick IntakeJoystick) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_IntakeSubsystem = intakeSubsystem;
-    addRequirements(m_IntakeSubsystem);
+    m_ShootingSubsystem = shootingSubsystem;
+    addRequirements(m_ShootingSubsystem);
+    m_StagingSubsystem = stagingSubsystem;
+    m_DriveJoystick = DriveJoystick;
+    m_IntakeJoystick = IntakeJoystick;
   }
 
   // Called when the command is initially scheduled.
@@ -23,14 +32,20 @@ public class RevAndDeliverTrapCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_IntakeSubsystem.Rev(.45);
-    m_IntakeSubsystem.Deliver(-.5);
+    m_ShootingSubsystem.ShootingMotor1.set(-(m_DriveJoystick.getRawAxis(3) + 1) / 2);
+    m_ShootingSubsystem.ShootingMotor2.set((m_IntakeJoystick.getRawAxis(3) + 1) / 2);
+    m_StagingSubsystem.StagingMotor1.set(0.3);
+    m_StagingSubsystem.StagingMotor2.set(0.3);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_IntakeSubsystem.ShootOff();
+    m_ShootingSubsystem.ShootingMotor1.set(0);
+    m_ShootingSubsystem.ShootingMotor2.set(0);
+    m_StagingSubsystem.StagingMotor1.set(0);
+    m_StagingSubsystem.StagingMotor2.set(0);
+    // NoteLightsControl = false;
   }
 
   // Returns true when the command should end.

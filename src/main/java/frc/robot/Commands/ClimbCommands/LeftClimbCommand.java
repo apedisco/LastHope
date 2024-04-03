@@ -2,18 +2,18 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.Commands;
+package frc.robot.Commands.ClimbCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Subsystems.IntakeSubsystem;
+import frc.robot.Subsystems.ClimbingSubsystem;
 
-public class NoteDumpCommand extends Command {
-  IntakeSubsystem m_IntakeSubsystem;
-  /** Creates a new NoteDumpCommand. */
-  public NoteDumpCommand(IntakeSubsystem intakeSubsystem) {
+public class LeftClimbCommand extends Command {
+  ClimbingSubsystem m_ClimbingSubsystem;
+  /** Creates a new LeftClimbCommand. */
+  public LeftClimbCommand(ClimbingSubsystem climbingSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_IntakeSubsystem = intakeSubsystem;
-    addRequirements(m_IntakeSubsystem);
+    m_ClimbingSubsystem = climbingSubsystem;
+    addRequirements(m_ClimbingSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -23,13 +23,13 @@ public class NoteDumpCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_IntakeSubsystem.NoteDumpOn();
+    m_ClimbingSubsystem.LeftClimbDown();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_IntakeSubsystem.NoteDumpOff();
+    m_ClimbingSubsystem.LeftCLimbStop();
   }
 
   // Returns true when the command should end.

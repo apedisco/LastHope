@@ -6,15 +6,16 @@ package frc.robot.Commands.RevCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Robot;
-import frc.robot.Subsystems.IntakeSubsystem;
+import frc.robot.Subsystems.ShootingSubsystem;
 
 public class RevSpeakerCommand extends Command {
-  IntakeSubsystem m_IntakeSubsystem;
+  public static final String InterruptBehavior = null;
+  ShootingSubsystem m_ShootingSubsystem;
   /** Creates a new RevCommand. */
-  public RevSpeakerCommand(IntakeSubsystem intakeSubsystem) {
+  public RevSpeakerCommand(ShootingSubsystem shootingSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_IntakeSubsystem = intakeSubsystem;
-    addRequirements(m_IntakeSubsystem);
+    m_ShootingSubsystem = shootingSubsystem;
+    addRequirements(m_ShootingSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -24,14 +25,20 @@ public class RevSpeakerCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_IntakeSubsystem.Rev(.55);
-    Robot.motorLightOutput.set(true);
+    m_ShootingSubsystem.ShootingMotor1.set(0.45);//-.45
+    m_ShootingSubsystem.ShootingMotor2.set(0.75);//.75
+    //m_IntakeSubsystem.ShootOn();
+   // m_IntakeSubsystem.Rev(-.55);
+   if(m_ShootingSubsystem.shooterEncoder2.getVelocity() > 4500){
+     Robot.motorLightOutput.set(true);
+   }
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_IntakeSubsystem.Rev(0);
+    m_ShootingSubsystem.Rev(0);
     Robot.motorLightOutput.set(false);
   }
 

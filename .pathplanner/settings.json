@@ -5,11 +5,16 @@
   "pathFolders": [
     "4Note",
     "FarNotes",
-    "New New Folder",
+    "Misc. Paths",
     "Row1Notes2&3",
-    "Row2Notes4&5"
+    "Row2Notes4&5",
+    "Test Folder"
   ],
-  "autoFolders": [],
+  "autoFolders": [
+    "Row 1",
+    "Row 2",
+    "Misc. Autos"
+  ],
   "defaultMaxVel": 2.0,
   "defaultMaxAccel": 2.0,
   "defaultMaxAngVel": 60.0,

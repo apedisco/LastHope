@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.032548350810988,
-        "y": 0.7329728945172185
+        "x": 8.29957545629377,
+        "y": 0.7622918102979067
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.085997314851773,
-        "y": 0.9382053049820385
+        "x": 5.353024420334555,
+        "y": 0.9675242207627267
       },
       "isLocked": false,
       "linkedName": null
@@ -46,10 +46,21 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "RevAndShoot",
+      "waypointRelativePos": 1.15,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": []
+        }
+      }
+    }
+  ],
   "globalConstraints": {
-    "maxVelocity": 2.0,
-    "maxAcceleration": 2.0,
+    "maxVelocity": 4.0,
+    "maxAcceleration": 4.0,
     "maxAngularVelocity": 60.0,
     "maxAngularAcceleration": 60.0
   },
@@ -64,5 +75,5 @@
     "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }

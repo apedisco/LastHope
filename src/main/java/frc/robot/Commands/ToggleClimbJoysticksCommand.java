@@ -6,17 +6,19 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Subsystems.IntakeSubsystem;
+import frc.robot.Subsystems.ClimbingSubsystem;
+//import frc.robot.Subsystems.IntakeSubsystem;
 
 public class ToggleClimbJoysticksCommand extends Command {
-  IntakeSubsystem m_IntakeSubsystem;
+  ClimbingSubsystem m_ClimbingSubsystem;
   Joystick m_leftJoystick;
   Joystick m_rightJoystick;
   /** Creates a new ToggleClimbJoysticksCommand. */
-  public ToggleClimbJoysticksCommand(IntakeSubsystem intakeSubsystem, Joystick leftJoystick, Joystick rightJoystick) {
+  public ToggleClimbJoysticksCommand(ClimbingSubsystem climbingSubsystem, Joystick leftJoystick, Joystick rightJoystick) {
     m_leftJoystick = leftJoystick;
     m_rightJoystick = rightJoystick;
-    m_IntakeSubsystem = intakeSubsystem;
+    m_ClimbingSubsystem = climbingSubsystem;
+    addRequirements(m_ClimbingSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
 
   }
@@ -31,26 +33,26 @@ public class ToggleClimbJoysticksCommand extends Command {
   @Override
   public void execute() {
     if (Math.abs(m_rightJoystick.getY()) < .1){
-      m_IntakeSubsystem.LeftCLimbStop();
+      m_ClimbingSubsystem.LeftCLimbStop();
     } else if (m_rightJoystick.getY() > 0){
-      m_IntakeSubsystem.LeftClimbDown();
+      m_ClimbingSubsystem.LeftClimbDown();
     } else if (m_rightJoystick.getY() < 0){
-      m_IntakeSubsystem.LeftClimbUp();
+      m_ClimbingSubsystem.LeftClimbUp();
     }
      if (Math.abs(m_leftJoystick.getY()) < .1){
-      m_IntakeSubsystem.RightCLimbStop();
+      m_ClimbingSubsystem.RightCLimbStop();
     } else if (m_leftJoystick.getY() > 0){
-      m_IntakeSubsystem.RightCLimbDown();
+      m_ClimbingSubsystem.RightCLimbDown();
     } else if (m_leftJoystick.getY() < 0){
-      m_IntakeSubsystem.RightCLimbUp();
+      m_ClimbingSubsystem.RightCLimbUp();
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_IntakeSubsystem.RightCLimbStop();
-    m_IntakeSubsystem.LeftCLimbStop();
+    m_ClimbingSubsystem.RightCLimbStop();
+    m_ClimbingSubsystem.LeftCLimbStop();
   }
 
   // Returns true when the command should end.

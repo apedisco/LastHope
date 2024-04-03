@@ -7,20 +7,21 @@ package frc.robot.Commands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Subsystems.IntakeSubsystem;
+import frc.robot.Subsystems.ClimbingSubsystem;
+//import frc.robot.Subsystems.IntakeSubsystem;
 
 public class ClimbJoystickCommand extends Command {
-  IntakeSubsystem m_IntakeSubsystem;
+  ClimbingSubsystem m_ClimbingSubsystem;
   DoubleSupplier m_RightClimbSpeed;
   DoubleSupplier m_LeftClimbSpeed;
 
   /** Creates a new ClimbJoystickCommand. */
-  public ClimbJoystickCommand(IntakeSubsystem intakeSubsystem, DoubleSupplier RightClimbSpeed, DoubleSupplier LeftClimbSpeed) {
+  public ClimbJoystickCommand(ClimbingSubsystem climbingSubsystem, DoubleSupplier RightClimbSpeed, DoubleSupplier LeftClimbSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_RightClimbSpeed = RightClimbSpeed;
     m_LeftClimbSpeed = LeftClimbSpeed;
-    m_IntakeSubsystem = intakeSubsystem;
-    addRequirements(m_IntakeSubsystem);
+    m_ClimbingSubsystem = climbingSubsystem;
+    addRequirements(m_ClimbingSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -39,14 +40,14 @@ public class ClimbJoystickCommand extends Command {
     //   m_IntakeSubsystem.RightCLimb(RightClimbMotorSpeed);
     // }
     if (ActualLeftClimbSpeed > 0){
-      m_IntakeSubsystem.RightCLimbDown();
+      m_ClimbingSubsystem.RightCLimbDown();
     } else if (ActualLeftClimbSpeed < 0){
-      m_IntakeSubsystem.RightCLimbUp();
+      m_ClimbingSubsystem.RightCLimbUp();
     }
     if (ActualRightClimbSpeed > 0){
-      m_IntakeSubsystem.LeftClimbDown();
+      m_ClimbingSubsystem.LeftClimbDown();
     } else if (ActualRightClimbSpeed < 0){
-      m_IntakeSubsystem.LeftClimbUp();
+      m_ClimbingSubsystem.LeftClimbUp();
     }
 
 

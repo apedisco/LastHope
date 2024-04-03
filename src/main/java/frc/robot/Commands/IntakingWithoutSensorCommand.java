@@ -6,12 +6,16 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.IntakeSubsystem;
+import frc.robot.Subsystems.StagingSubsystem;
 
 public class IntakingWithoutSensorCommand extends Command {
+  StagingSubsystem m_StagingSubsystem;
   IntakeSubsystem m_IntakeSubsystem;
   /** Creates a new IntakingWithoutSensorCommand. */
-  public IntakingWithoutSensorCommand(IntakeSubsystem intakeSubsystem) {
+  public IntakingWithoutSensorCommand(IntakeSubsystem intakeSubsystem, StagingSubsystem stagingSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_StagingSubsystem = stagingSubsystem;
+    addRequirements(m_StagingSubsystem);
     m_IntakeSubsystem = intakeSubsystem;
     addRequirements(m_IntakeSubsystem);
   }
@@ -23,13 +27,19 @@ public class IntakingWithoutSensorCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_IntakeSubsystem.IntakeIn();
+    m_IntakeSubsystem.IntakeMotor1.set(.2);
+    m_IntakeSubsystem.IntakeMotor2.set(.2);
+    m_StagingSubsystem.StagingMotor1.set(-.15);
+    m_StagingSubsystem.StagingMotor2.set(-.15);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_IntakeSubsystem.IntakeOff();
+      m_IntakeSubsystem.IntakeMotor1.set(0);
+      m_IntakeSubsystem.IntakeMotor2.set(0);
+      m_StagingSubsystem.StagingMotor1.set(0);
+      m_StagingSubsystem.StagingMotor2.set(0);
   }
 
   // Returns true when the command should end.

@@ -5,15 +5,20 @@
 package frc.robot.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Subsystems.IntakeSubsystem;
+//import frc.robot.Subsystems.IntakeSubsystem;
+import frc.robot.Subsystems.ShootingSubsystem;
+import frc.robot.Subsystems.StagingSubsystem;
 
 public class AutoShootHighCommand extends Command {
-  IntakeSubsystem m_IntakeSubsystem;
+  ShootingSubsystem m_ShootingSubsystem;
+  StagingSubsystem m_StagingSubsystem;
   private double EngageTime;
   /** Creates a new AutoShootHighCommand. */
-  public AutoShootHighCommand(IntakeSubsystem intakeSubsystem) {
-    m_IntakeSubsystem = intakeSubsystem;
-    addRequirements(m_IntakeSubsystem);
+  public AutoShootHighCommand(ShootingSubsystem shootingSubsystem, StagingSubsystem stagingSubsystem) {
+    m_ShootingSubsystem = shootingSubsystem;
+    addRequirements(m_ShootingSubsystem);
+    m_StagingSubsystem = stagingSubsystem;
+    addRequirements(m_StagingSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -22,17 +27,17 @@ public class AutoShootHighCommand extends Command {
   public void initialize() {
     System.out.println("ShootingItilizing");
     EngageTime = System.currentTimeMillis();
-    m_IntakeSubsystem.Rev(.55);
+    m_ShootingSubsystem.Rev(0.75);//0.75
     
    while(true){
-    m_IntakeSubsystem.Rev(.8);
+    m_ShootingSubsystem.Rev(0.75);//0.75
       if(System.currentTimeMillis() - EngageTime > 600 && System.currentTimeMillis() - EngageTime < 900){
-        m_IntakeSubsystem.Rev(.8);
-        m_IntakeSubsystem.Deliver(-.5);
+        m_ShootingSubsystem.Rev(0.75);//0.75
+        m_StagingSubsystem.DeliverHigh();
       }
 
       else if(System.currentTimeMillis() - EngageTime > 800){
-        m_IntakeSubsystem.ShootOff();
+        m_ShootingSubsystem.Rev(0);
         System.out.println("ShootingDoneIntilizing");
         break;
       }
@@ -47,7 +52,8 @@ public class AutoShootHighCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     System.out.println("ShootingDone");
-    m_IntakeSubsystem.ShootOff();
+    m_ShootingSubsystem.Rev(0);
+    m_StagingSubsystem.DeliverStop();
   }
 
   // Returns true when the command should end.

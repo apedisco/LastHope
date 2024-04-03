@@ -6,15 +6,18 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.IntakeSubsystem;
+import frc.robot.Subsystems.StagingSubsystem;
 import frc.robot.Robot;
 
 public class IntakingWithSensorCommand extends Command {
-
+  StagingSubsystem m_StagingSubsystem;
   IntakeSubsystem m_IntakeSubsystem;
-  
+  boolean NoteLightsControl;
   /** Creates a new IntakingCommand. */
-  public IntakingWithSensorCommand(IntakeSubsystem intakeSubsystem) {
+  public IntakingWithSensorCommand(IntakeSubsystem intakeSubsystem, StagingSubsystem stagingSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_StagingSubsystem = stagingSubsystem;
+    addRequirements(m_StagingSubsystem);
     m_IntakeSubsystem = intakeSubsystem;
     addRequirements(m_IntakeSubsystem);
   }
@@ -27,19 +30,33 @@ public class IntakingWithSensorCommand extends Command {
   @Override
   public void execute() {
   // Runs the intake
-    m_IntakeSubsystem.IntakeIn();
+  //  m_IntakeSubsystem.IntakeMotor1.set(.2);
+  //  m_IntakeSubsystem.IntakeMotor2.set(.2);
+  //  m_StagingSubsystem.StagingMotor1.set(-.15);
+  //  m_StagingSubsystem.StagingMotor2.set(.15);
+
     if(Robot.MasterStagingSensor.get()){
-       m_IntakeSubsystem.IntakeIn();
+      m_IntakeSubsystem.IntakeMotor1.set(.2);
+      m_IntakeSubsystem.IntakeMotor2.set(.2);
+      m_StagingSubsystem.StagingMotor1.set(.15);
+      m_StagingSubsystem.StagingMotor2.set(.15);
     }
+
     else{
-      m_IntakeSubsystem.IntakeOff();
+      m_IntakeSubsystem.IntakeMotor1.set(0);
+      m_IntakeSubsystem.IntakeMotor2.set(0);
+      m_StagingSubsystem.StagingMotor1.set(0);
+      m_StagingSubsystem.StagingMotor2.set(0);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_IntakeSubsystem.IntakeOff();
+    m_IntakeSubsystem.IntakeMotor1.set(0);
+    m_IntakeSubsystem.IntakeMotor2.set(0);
+    m_StagingSubsystem.StagingMotor1.set(0);
+    m_StagingSubsystem.StagingMotor2.set(0);
   }
 
   // Returns true when the command should end.

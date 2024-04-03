@@ -15,12 +15,11 @@ import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
 
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.math.kinematics.Odometry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.generated.TunerConstants;
@@ -92,8 +91,8 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
             this::seedFieldRelative,  // Consumer for seeding pose against auto
             this::getCurrentRobotChassisSpeeds,
             (speeds)->this.setControl(autoRequest.withSpeeds(speeds)), // Consumer of ChassisSpeeds to drive the robot
-            new HolonomicPathFollowerConfig(new PIDConstants(10, 0, 0),
-                                            new PIDConstants(10, 0, 0),
+            new HolonomicPathFollowerConfig(new PIDConstants(0, 0, 0),
+                                            new PIDConstants(0, 0, 0),
                                             TunerConstants.kSpeedAt12VoltsMps,
                                             driveBaseRadius,
                                             new ReplanningConfig() // Default path replanning config. See the API for the options here
@@ -164,5 +163,19 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
         System.out.println("resetting");
         mPigeon2.reset();
       }
+      public void CheckMotorVoltage(SwerveModuleConstants... modules){
+        SmartDashboard.putNumber("FrontLeftDrive", getModule(0).getDriveMotor().getSupplyVoltage().getValueAsDouble());
+        SmartDashboard.putNumber("FrontLeftSteer", getModule(0).getSteerMotor().getSupplyVoltage().getValueAsDouble());
+        SmartDashboard.putNumber("FrontRightDrive", getModule(1).getDriveMotor().getSupplyVoltage().getValueAsDouble());
+        SmartDashboard.putNumber("FrontRightSteer", getModule(1).getSteerMotor().getSupplyVoltage().getValueAsDouble());
+        SmartDashboard.putNumber("BackLeftDrive", getModule(2).getDriveMotor().getSupplyVoltage().getValueAsDouble());
+        SmartDashboard.putNumber("BackLeftSteer", getModule(2).getSteerMotor().getSupplyVoltage().getValueAsDouble());
+        SmartDashboard.putNumber("BackRightDrive", getModule(3).getDriveMotor().getSupplyVoltage().getValueAsDouble());
+        SmartDashboard.putNumber("BackRightSteer", getModule(3).getSteerMotor().getSupplyVoltage().getValueAsDouble());
+      }
+     
+    //   public void ZeroYawAndGyroZ(){
+    //     mPigeon2.
+    //   }
 
 }

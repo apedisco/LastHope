@@ -2,24 +2,24 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6913168112050516,
-      "y": 6.56743713487427
+      "x": 0.36880873761747585,
+      "y": 4.236583330309518
     },
-    "rotation": 62.354024636261364
+    "rotation": 0.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "ShootHighCommand"
+            "pathName": "First Shot"
           }
         }
       ]
     }
   },
-  "folder": "Misc. Autos",
+  "folder": "Row 2",
   "choreoAuto": false
 }
