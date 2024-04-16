@@ -17,6 +17,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 //import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 //import frc.robot.Commands.CheckMotorVoltagesCommand;
@@ -25,12 +26,12 @@ import frc.robot.Commands.IntakingWithSensorCommand;
 import frc.robot.Commands.IntakingWithoutSensorCommand;
 import frc.robot.Commands.ShooterReverseCommand;
 import frc.robot.Commands.ToggleClimbJoysticksCommand;
-import frc.robot.Commands.ClimbCommands.DualClimbCommand;
-import frc.robot.Commands.ClimbCommands.DualClimbUpCommand;
 import frc.robot.AutoCommands.AutoShootHighSeqential;
 import frc.robot.Commands.RevAndDeliverCommands.RevAndDeliverAmpCommand;
 import frc.robot.Commands.RevAndDeliverCommands.RevAndDeliverSpeakerCommand;
 import frc.robot.Commands.RevAndDeliverCommands.RevAndDeliverTrapCommand;
+import frc.robot.Commands.RevAndDeliverCommands.ClimbCommands.DualClimbCommand;
+import frc.robot.Commands.RevAndDeliverCommands.ClimbCommands.DualClimbUpCommand;
 import frc.robot.Commands.RevCommands.RevAmpCommand;
 import frc.robot.Commands.RevCommands.RevSpeakerCommand;
 import frc.robot.Commands.RevCommands.RevTrapCommand;
@@ -157,10 +158,11 @@ public class RobotContainer {
   //Tells the button what to do 
 
     // IntakeJoystick (0)
+   //RevAmpButton.onTrue(new InstantCommand(() -> presentRotation()));
     RevAmpButton.whileTrue(new RevAmpCommand(m_ShootingSubsystem));
     (RevAndDeliverButton.and(RevSpeakerButton)).whileTrue(new RevAndDeliverSpeakerCommand(m_ShootingSubsystem, m_StagingSubsystem));
     (RevAndDeliverButton.and(RevAmpButton)).whileTrue(new RevAndDeliverAmpCommand(m_IntakeSubsystem, m_ShootingSubsystem, m_StagingSubsystem));
-    (RevAndDeliverButton.and(RevTrapButton)).whileTrue(new RevAndDeliverTrapCommand(m_ShootingSubsystem,m_StagingSubsystem, m_DriveJoystick, m_IntakeJoystick));
+    (RevAndDeliverButton.and(RevTrapButton)).whileTrue(new RevAndDeliverTrapCommand(m_ShootingSubsystem,m_StagingSubsystem, m_DriveJoystick, m_IntakeJoystick, m_ShootingJoystick));
     ShooterReverseButon.whileTrue(new ShooterReverseCommand(m_IntakeSubsystem, m_ShootingSubsystem, m_StagingSubsystem));
                                                                                                                           //TestingMotorVoltagesButton.toggleOnTrue(new CheckMotorVoltagesCommand(drivetrain));
     DualClimbButton.whileTrue(new DualClimbCommand(m_ClimbingSubsystem));
@@ -173,12 +175,11 @@ public class RobotContainer {
     IntakingWithSensorButton.whileTrue(new IntakingWithSensorCommand(m_IntakeSubsystem, m_StagingSubsystem));
                                                                                                             //testPID.onTrue(new InstantCommand(() -> m_IntakeSubsystem.pidShooting(500)));
    
-    // ShootingJoystick (2)
+    // ShootingJoystick (2) 
     RevSpeakerButton.whileTrue(new RevSpeakerCommand(m_ShootingSubsystem));
-    RevTrapButton.whileTrue(new RevTrapCommand(m_ShootingSubsystem, m_DriveJoystick, m_IntakeJoystick));
+    RevTrapButton.whileTrue(new RevTrapCommand(m_ShootingSubsystem, m_DriveJoystick, m_IntakeJoystick, m_ShootingJoystick));
     
 
-   
 
     
     // DO NOT DELETE, this is important for the drivetrain to work

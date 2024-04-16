@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.49,
-        "y": 0.76
+        "x": 7.1,
+        "y": 6.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.126670416197975,
-        "y": 0.76
+        "x": 7.537283645995864,
+        "y": 6.4941398454225485
       },
       "isLocked": false,
       "linkedName": null
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 8.29957545629377,
-        "y": 2.433470009797163
+        "y": 6.5
       },
       "prevControl": {
-        "x": 6.335208098987628,
-        "y": 2.330853804564752
+        "x": 8.006386298486884,
+        "y": 6.479480387532203
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,25 +30,7 @@
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "Intake",
-      "waypointRelativePos": 0.85,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "IntakingCommand"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,

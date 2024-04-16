@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
   public final CommandSwerveDrivetrain drivetrain = TunerConstants.DriveTrain;
   public static DigitalInput MasterStagingSensor = new DigitalInput(0);
   public static DigitalOutput LightOutput = new DigitalOutput(3);
-  public static DigitalOutput motorLightOutput = new DigitalOutput(2);
+  //public static DigitalOutput motorLightOutput = new DigitalOutput(2);
   public static Spark spark = new Spark(0); // 0 is the RIO PWM port this is connected to
 
  // the % output of the motor, between -1 and 1
@@ -86,14 +86,18 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    spark.set(0.71); 
+     
 
     if (MasterStagingSensor.get()){
-      LightOutput.set(true);
+     // LightOutput.set(true);
+     spark.set(0.61); 
+     
       NoteLightsMotor.set(0);
       RedLightsMotor.set(.5);
     } else {
-      LightOutput.set(false);
+      // LightOutput.set(false);
+      spark.set(0.77); 
+
       NoteLightsMotor.set(.3);
       RedLightsMotor.set(0);
     }

@@ -29,8 +29,9 @@ public class RevSpeakerCommand extends Command {
     m_ShootingSubsystem.ShootingMotor2.set(0.75);//.75
     //m_IntakeSubsystem.ShootOn();
    // m_IntakeSubsystem.Rev(-.55);
-   if(m_ShootingSubsystem.shooterEncoder2.getVelocity() > 4500){
-     Robot.motorLightOutput.set(true);
+   if(m_ShootingSubsystem.shooterEncoder2.getVelocity() > 4300){
+    //  Robot.motorLightOutput.set(true)
+    Robot.spark.set(-0.09);
    }
     
   }
@@ -39,7 +40,7 @@ public class RevSpeakerCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     m_ShootingSubsystem.Rev(0);
-    Robot.motorLightOutput.set(false);
+    // Robot.motorLightOutput.set(false);
   }
 
   // Returns true when the command should end.

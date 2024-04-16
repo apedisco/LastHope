@@ -48,14 +48,19 @@ public class RevAndDeliverAmpCommand extends Command {
     // }
 
     if(System.currentTimeMillis() - EngageTime > 0 && System.currentTimeMillis() - EngageTime < 1100){
-     m_ShootingSubsystem.pidShooting1(1650);
-     m_ShootingSubsystem.pidShooting2(700);
+    //  m_ShootingSubsystem.pidShooting1(1650);
+    //  m_ShootingSubsystem.pidShooting2(700);
+      
+      //Shooter -8%
+      m_ShootingSubsystem.pidShooting1(2000); //1700
+      m_ShootingSubsystem.pidShooting2(450); //400
+
      //m_StagingSubsystem.DeliverLow();
 
       m_IntakeSubsystem.IntakeMotor1.set(0.2);
       m_IntakeSubsystem.IntakeMotor2.set(0.2);
-      m_StagingSubsystem.StagingMotor1.set(0.15);
-      m_StagingSubsystem.StagingMotor2.set(0.15);
+      m_StagingSubsystem.StagingMotor1.set(0.2);
+      m_StagingSubsystem.StagingMotor2.set(0.2);
     }
 
     if(System.currentTimeMillis() - EngageTime > 1100){

@@ -14,15 +14,17 @@ public class RevAndDeliverTrapCommand extends Command {
   StagingSubsystem m_StagingSubsystem;
   Joystick m_DriveJoystick;
   Joystick m_IntakeJoystick;
+  Joystick m_ShootingJoystick;
   // boolean NoteLightsControl;
   /** Creates a new RevAndDeliverTrapCommand. */
-  public RevAndDeliverTrapCommand(ShootingSubsystem shootingSubsystem, StagingSubsystem stagingSubsystem, Joystick DriveJoystick, Joystick IntakeJoystick) {
+  public RevAndDeliverTrapCommand(ShootingSubsystem shootingSubsystem, StagingSubsystem stagingSubsystem, Joystick DriveJoystick, Joystick IntakeJoystick, Joystick shootingJoystick) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_ShootingSubsystem = shootingSubsystem;
     addRequirements(m_ShootingSubsystem);
     m_StagingSubsystem = stagingSubsystem;
     m_DriveJoystick = DriveJoystick;
     m_IntakeJoystick = IntakeJoystick;
+    m_ShootingJoystick = shootingJoystick;
   }
 
   // Called when the command is initially scheduled.
@@ -32,8 +34,8 @@ public class RevAndDeliverTrapCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ShootingSubsystem.ShootingMotor1.set(-(m_DriveJoystick.getRawAxis(3) + 1) / 2);
-    m_ShootingSubsystem.ShootingMotor2.set((m_IntakeJoystick.getRawAxis(3) + 1) / 2);
+    m_ShootingSubsystem.ShootingMotor1.set((m_IntakeJoystick.getRawAxis(3) + 1) / 2);//-.2 for long speaker // -.29 for amp
+    m_ShootingSubsystem.ShootingMotor2.set((m_ShootingJoystick.getRawAxis(3) + 1) / 2);//.8 for long speaker // .35 for amp
     m_StagingSubsystem.StagingMotor1.set(0.3);
     m_StagingSubsystem.StagingMotor2.set(0.3);
   }

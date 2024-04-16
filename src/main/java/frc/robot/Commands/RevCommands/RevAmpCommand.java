@@ -29,10 +29,13 @@ public class RevAmpCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ShootingSubsystem.pidShooting1(1650);
-    m_ShootingSubsystem.pidShooting2(600);
+    m_ShootingSubsystem.pidShooting1(2000); //1700
+    m_ShootingSubsystem.pidShooting2(450); //400
+
+    
    if(m_ShootingSubsystem.shooterEncoder1.getVelocity() > 1200){
-    Robot.motorLightOutput.set(true);
+    // Robot.motorLightOutput.set(true);
+    Robot.spark.set(-0.09);
    }
     
   }
@@ -41,7 +44,7 @@ public class RevAmpCommand extends Command {
   @Override
   public void end(boolean interrupted) {
     m_ShootingSubsystem.Rev(0);
-    Robot.motorLightOutput.set(false);
+    // Robot.motorLightOutput.set(false);
    m_ShootingSubsystem.ShootingMotor1.setIdleMode(IdleMode.kCoast);
  //  m_ShootingSubsystem.ShootingMotor1.setInverted(false);
   }
