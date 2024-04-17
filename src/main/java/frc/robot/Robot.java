@@ -59,6 +59,7 @@ public class Robot extends TimedRobot {
   public static DigitalOutput LightOutput = new DigitalOutput(3);
   //public static DigitalOutput motorLightOutput = new DigitalOutput(2);
   public static Spark spark = new Spark(0); // 0 is the RIO PWM port this is connected to
+  public static Spark climbLight = new Spark(1); // 0 is the RIO PWM port this is connected to
 
  // the % output of the motor, between -1 and 1
   // public boolean NoteLightsControl = false;
@@ -91,15 +92,17 @@ public class Robot extends TimedRobot {
     if (MasterStagingSensor.get()){
      // LightOutput.set(true);
      spark.set(0.61); 
+     climbLight.set(.61);
      
-      NoteLightsMotor.set(0);
-      RedLightsMotor.set(.5);
+      // NoteLightsMotor.set(0);
+      // RedLightsMotor.set(.5);
     } else {
       // LightOutput.set(false);
       spark.set(0.77); 
+      climbLight.set(.77);
 
-      NoteLightsMotor.set(.3);
-      RedLightsMotor.set(0);
+      // NoteLightsMotor.set(.3);
+      // RedLightsMotor.set(0);
     }
     CommandScheduler.getInstance().run(); 
 
